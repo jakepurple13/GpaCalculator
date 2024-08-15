@@ -97,7 +97,7 @@ fun GpaScreen(
                 ) {
                     Text(
                         animateValueAsState(
-                            gpaTotals.gpa,
+                            gpaTotals.gpa.let { if (it.isNaN()) 0.0 else it },
                             DoubleConverter,
                             label = "GPA"
                         ).value.roundTo(2).toString(),

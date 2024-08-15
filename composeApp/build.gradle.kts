@@ -29,6 +29,17 @@ kotlin {
         }
         binaries.executable()
     }
+
+    js {
+        moduleName = "app"
+        binaries.executable()
+        browser {
+            useCommonJs()
+            commonWebpackConfig {
+                outputFileName = "$moduleName.js"
+            }
+        }
+    }
     
     androidTarget {
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
@@ -71,6 +82,13 @@ kotlin {
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutines.swing)
+        }
+
+        val jsMain by getting {
+            dependencies {
+                @Suppress("DEPRECATION")
+                implementation(compose.web.core) // Required for Compose Web/Canvas on JS
+            }
         }
     }
 }
